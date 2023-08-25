@@ -1,7 +1,5 @@
 
 
-const UBprice = document.getElementById('UB-price');
-const UBcounterElement = document.getElementById('UBcounter');
 const UBcontainer = document.getElementById('UB-container');
 const UBrowSeat = document.getElementById('UBrowSeat');
 const UBSeat = document.getElementById('UB-seat').textContent;
@@ -41,6 +39,8 @@ for (let row = 0; row < UBrows; row++) {
      
 
 
+
+const UBprice = document.getElementById('UB-price');
 UBseatButton.addEventListener('click', function() {
     const LBpriceVal = parseInt(UBprice.textContent.replace(/[^\d]/g, ''));          
     UBoutput.textContent = `₱${LBpriceVal.toLocaleString()}`;
@@ -66,6 +66,7 @@ const UBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
         });
         return UBtooltip;
     });   
+    const UBcounterElement = document.getElementById('UBcounter');
     const UBoutput1 = document.getElementById('UBoutput1');
     const UBboxButtons = document.querySelectorAll('.box');
     UBboxButtons.forEach(UBbutton => {
