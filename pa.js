@@ -118,6 +118,7 @@ const PAtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                         PAclickCount = 0;
                         PAcounterElement.textContent = PAclickCount;
                         PAselectedSeats.innerHTML = "";
+                        updateDropdownState();
                     }
                 });
         
@@ -126,5 +127,16 @@ const PAtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 totalAmount += PArowSeat.amount;
                 PAtotalAmount.textContent = "₱" + totalAmount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
             });
+            updateDropdownState();
         });
+
+        function updateDropdownState() {
+            const VIPselectedSeats = document.getElementById('seat-table');
+            const VIPSeatsDropdown = document.getElementById('paSelect');
         
+            if (VIPselectedSeats.rows.length > 0) {
+                VIPSeatsDropdown.disabled = true;
+            } else {
+                VIPSeatsDropdown.disabled = false;
+            }
+        }

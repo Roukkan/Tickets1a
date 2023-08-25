@@ -100,7 +100,7 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
                     var index = VIPClicked.findIndex(entry => entry.title === seat.title); // Find the correct index
         
                     VIPClicked.splice(index, 1); // Remove the clicked seat entry
-        
+                    
                     // Find and unclick the corresponding button
                     const clickedButton = document.getElementById(seat.title);
                     if (clickedButton) {
@@ -118,6 +118,7 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
                         clickedCount = 0;
                         counterElement.textContent = clickedCount;
                         VIPselectedSeats.innerHTML = ""; // Clear the table
+                        updateDropdownState();
                     }
                 });
         
@@ -126,5 +127,17 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
                 totalAmount += seat.amount;
                 VIPTotalAmount.textContent = "₱" + totalAmount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
             });
+            updateDropdownState();
         });
         
+
+        function updateDropdownState() {
+            const VIPselectedSeats = document.getElementById('seat-table');
+            const VIPSeatsDropdown = document.getElementById('vipSelect');
+        
+            if (VIPselectedSeats.rows.length > 0) {
+                VIPSeatsDropdown.disabled = true;
+            } else {
+                VIPSeatsDropdown.disabled = false;
+            }
+        }
