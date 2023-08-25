@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- You can link your custom styles here -->
+    <title>Button Array</title>
+</head>
+<body>
+    <div id="PBcontainer" class="container">
+        <!-- Buttons will be added here -->
+    </div>
+    <script>
+        const PBrows = 5;
+        const PBcolumns = [11, 12, 12, 13, 12];
+        
+        const PBcontainer = document.getElementById('PBcontainer');
+
+        for (let row = 0; row < PBrows; row++) {
+            const rowDiv = document.createElement('div'); // Create a new row for each set of buttons
+            rowDiv.classList.add('row');
+
+            for (let col = PBcolumns[row]; col >= 1; col--) {
+                const PBbutton = document.createElement('button');
+                PBbutton.textContent = '';
+                PBbutton.classList.add('box');            
+                PBbutton.setAttribute('data-bs-toggle', 'tooltip');
+                PBbutton.setAttribute('data-bs-placement', 'top');
+                PBbutton.setAttribute('data-bs-custom-class', 'custom-tooltip');
+                const PAseatType = `RR${row + 1} S${col}`;
+                PBbutton.setAttribute('data-bs-title', PAseatType);
+                PBbutton.id = PAseatType;
+                PBbutton.addEventListener('click', () => {
+                    if (PBbutton.classList.contains('clicked')) {
+                        PBbutton.classList.remove('clicked');
+                    } else {
+                        PBbutton.classList.add('clicked');
+                    }
+                });
+                rowDiv.appendChild(PBbutton);
+            }
+
+            PBcontainer.appendChild(rowDiv);
+        }
+    </script>
+</body>
+</html>
