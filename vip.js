@@ -1,4 +1,4 @@
-const VIPClicked = [];
+
 const VIPoutput1 = document.getElementById('output1');
 const VIPprice = document.getElementById('VIP-price');
 const counterElement = document.getElementById('counter');
@@ -58,7 +58,7 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
         });
         return tooltip;
     });   
-    
+
     const VIPboxButtons = document.querySelectorAll('.box');
     VIPboxButtons.forEach(VIPbutton => {
         VIPbutton.addEventListener('click', function() {
@@ -77,7 +77,8 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
                 }
             });
         });
-
+        const VIPClicked = [];
+        const VIPpaymentButton = document.getElementById('paymentButton');
         const VIPTotalAmount = document.getElementById("totalAmount");
         const confirmSeatButton = document.getElementById('confirmSeat');
         const VIPselectedSeats = document.getElementById("seat-table");
@@ -126,18 +127,21 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
         
                 totalAmount += seat.amount;
                 VIPTotalAmount.textContent = "₱" + totalAmount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+                
             });
             updateDropdownState();
         });
         
-
-        function updateDropdownState() {
-            const VIPselectedSeats = document.getElementById('seat-table');
-            const VIPSeatsDropdown = document.getElementById('vipSelect');
+function updateDropdownState() {
+    const VIPselectedSeats = document.getElementById('seat-table');
+    const VIPSeatsDropdown = document.getElementById('vipSelect');
         
-            if (VIPselectedSeats.rows.length > 0) {
-                VIPSeatsDropdown.disabled = true;
-            } else {
-                VIPSeatsDropdown.disabled = false;
-            }
+        if (VIPselectedSeats.rows.length > 0) {
+            VIPSeatsDropdown.disabled = true;
+            VIPpaymentButton.style.display = 'block';
+        } else {
+            VIPSeatsDropdown.disabled = false;
+            VIPpaymentButton.style.display = 'none';
         }
+}

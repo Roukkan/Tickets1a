@@ -1,7 +1,7 @@
-const UBclicked = [];
-const UBoutput1 = document.getElementById('UBoutput1');
+
+
 const UBprice = document.getElementById('UB-price');
-const UBcounterElement = document.getElementById('LBcounter');
+const UBcounterElement = document.getElementById('UBcounter');
 const UBcontainer = document.getElementById('UB-container');
 const UBrowSeat = document.getElementById('UBrowSeat');
 const UBSeat = document.getElementById('UB-seat').textContent;
@@ -61,12 +61,12 @@ const UBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 UBclickCount--;
             }
             
-            const UBclickedCounterElement = document.getElementById('LBcounter');
+            const UBclickedCounterElement = document.getElementById('UBcounter');
             UBclickedCounterElement.textContent = UBclickCount;
         });
         return UBtooltip;
     });   
-
+    const UBoutput1 = document.getElementById('UBoutput1');
     const UBboxButtons = document.querySelectorAll('.box');
     UBboxButtons.forEach(UBbutton => {
         UBbutton.addEventListener('click', function() {
@@ -85,7 +85,8 @@ const UBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 }
             });
         });
-        
+        const UBclicked = [];
+        const UBpaymentButton = document.getElementById('paymentButton');
         const UBtotalAmount = document.getElementById("totalAmount");
         const UBconfirmButton = document.getElementById('UBconfirmSeat');
         const UBselectedSeats = document.getElementById("seat-table");
@@ -142,7 +143,9 @@ const UBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
         
             if (VIPselectedSeats.rows.length > 0) {
                 VIPSeatsDropdown.disabled = true;
+                UBpaymentButton.style.display = 'block';
             } else {
                 VIPSeatsDropdown.disabled = false;
+                UBpaymentButton.style.display = 'none';
             }
         }

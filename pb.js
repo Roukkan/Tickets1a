@@ -1,4 +1,4 @@
-const PBclicked = [];
+
 const PBoutput1 = document.getElementById('PBoutput1');
 const PBprice = document.getElementById('PB-price');
 const PBcounterElement = document.getElementById('PBcounter');
@@ -86,6 +86,8 @@ const PBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
             });
         });
 
+        const PBclicked = [];
+        const PBpaymentButton = document.getElementById('paymentButton');
         const PBtotalAmount = document.getElementById("totalAmount");
         const PBconfirmButton = document.getElementById('PBconfirmSeat');
         const PBselectedSeats = document.getElementById("seat-table");
@@ -142,8 +144,10 @@ const PBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
         
             if (VIPselectedSeats.rows.length > 0) {
                 VIPSeatsDropdown.disabled = true;
+                PBpaymentButton.style.display = 'block';
             } else {
                 VIPSeatsDropdown.disabled = false;
+                PBpaymentButton.style.display = 'none';
             }
         }
         

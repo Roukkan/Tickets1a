@@ -134,6 +134,10 @@ h3,h4 {
   grid: 0px;
 }
 
+#LB-container {
+  display: block;
+}
+
 button.clicked {
   background-color: purple;
 }
@@ -180,3 +184,8 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
+.summary-table > td {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

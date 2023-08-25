@@ -1,4 +1,4 @@
-const LBclicked = [];
+
 const LBoutput1 = document.getElementById('LBoutput1');
 const LBprice = document.getElementById('LB-price');
 const LBcounterElement = document.getElementById('LBcounter');
@@ -85,7 +85,9 @@ const LBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 }
             });
         });
-        
+
+        const LBclicked = [];
+        const LBpaymentButton = document.getElementById('paymentButton');
         const LBtotalAmount = document.getElementById("totalAmount");
         const LBconfirmButton = document.getElementById('LBconfirmSeat');
         const LBselectedSeats = document.getElementById("seat-table");
@@ -142,7 +144,9 @@ const LBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
         
             if (VIPselectedSeats.rows.length > 0) {
                 VIPSeatsDropdown.disabled = true;
+                LBpaymentButton.style.display = 'block';
             } else {
                 VIPSeatsDropdown.disabled = false;
+                LBpaymentButton.style.display = 'none';
             }
         }

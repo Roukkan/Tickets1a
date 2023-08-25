@@ -1,4 +1,4 @@
-const PAclicked = [];
+
 const PAoutput1 = document.getElementById('PAoutput1');
 const PAprice = document.getElementById('PA-price');
 const PAcounterElement = document.getElementById('PAcounter');
@@ -79,12 +79,13 @@ const PAtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 }
             });
         });
-
+        const PAclicked = [];
+        const PApaymentButton = document.getElementById('paymentButton');
         const PAtotalAmount = document.getElementById("totalAmount");
         const PAConfrimButton = document.getElementById('PAconfirmSeat');
         const PAselectedSeats = document.getElementById("seat-table");
         PAConfrimButton.addEventListener('click', function() {
-            // PAselectedSeats.innerHTML = "";
+            PAselectedSeats.innerHTML = "";
             var totalAmount = 0;
         
             PAclicked.forEach(function(PArowSeat) {
@@ -136,7 +137,9 @@ const PAtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
         
             if (VIPselectedSeats.rows.length > 0) {
                 VIPSeatsDropdown.disabled = true;
+                PApaymentButton.style.display = 'block';
             } else {
                 VIPSeatsDropdown.disabled = false;
+                PApaymentButton.style.display = 'none';
             }
         }
