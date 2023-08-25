@@ -39,7 +39,7 @@
     <!---------------------------------------- VIP ----------------------------------------------->
     <div class="row mt-3">
       <div class="col d-flex justify-content-center align-items-center">
-        <h3 id="vip-seat">VIP</h3>
+        <h3 id="vip-seat" class="vip">VIP</h3>
       </div>
       <div class="col d-flex justify-content-center align-items-center">
         <select class="form-select w-75" aria-label="VIPselect" id="vipSelect">
@@ -61,7 +61,7 @@
     <!---------------------------------------- P-A ----------------------------------------------->
     <div class="row mt-3">
       <div class="col d-flex justify-content-center align-items-center">
-        <h3 id="PA-seat">PATRON A</h3>
+        <h3 id="PA-seat" class="patronA">PATRON A</h3>
       </div>
       <div class="col d-flex justify-content-center align-items-center">
         <select class="form-select w-75" aria-label="VIPselect" id="paSelect">
@@ -92,7 +92,7 @@
     <!---------------------------------------- P-B ----------------------------------------------->
     <div class="row mt-3">
       <div class="col d-flex justify-content-center align-items-center">
-        <h3 id="PB-seat">PATRON B</h3>
+        <h3 id="PB-seat" class="patronB">PATRON B</h3>
       </div>
       <div class="col d-flex justify-content-center align-items-center">
         <select class="form-select w-75" aria-label="VIPselect" id="pbSelect">
@@ -123,7 +123,7 @@
     <!---------------------------------------- L-B ----------------------------------------------->
     <div class="row mt-3">
       <div class="col d-flex justify-content-center align-items-center">
-        <h3 id="LB-seat">LOWER BOX</h3>
+        <h3 id="LB-seat" class="lBox">LOWER BOX</h3>
       </div>
       <div class="col d-flex justify-content-center align-items-center">
         <select class="form-select w-75" aria-label="lbselect" id="lbSelect">
@@ -156,7 +156,7 @@
     <!---------------------------------------- U-B ----------------------------------------------->
     <div class="row mt-3">
       <div class="col d-flex justify-content-center align-items-center">
-        <h3 id="UB-seat">UPPER BOX</h3>
+        <h3 id="UB-seat" class="uBox">UPPER BOX</h3>
       </div>
       <div class="col d-flex justify-content-center align-items-center">
         <select class="form-select w-75" aria-label="ubselect" id="ubSelect">
@@ -183,9 +183,36 @@
       <div class="col d-flex justify-content-center align-items-center">
         <button type="button" id="UB-select" class="btn btn-outline-success selectSeats" data-bs-toggle="modal" data-bs-target="#UB-Seats" disabled>Select Seats</button>
       </div>
-    </div>     
-
+    </div>   
     
+    <!---------------------------------------- Gen Ad ----------------------------------------------->
+    <div class="row mt-2">
+      <div class="col d-flex justify-content-center align-content-center">
+        <h3 id="GA-seat" class="genAd">GEN. AD.</h3>
+      </div>
+
+      <div class="col d-flex justify-content-center align-items-center">
+        <select class="form-select w-75" aria-label="Default select example" id="genAdSelect">
+          <option selected value="">Seat Section</option>
+          <option value="genAd" disabled>GEN. AD. Unavailable</option>
+        </select>
+      </div>
+
+      <div class="col d-flex justify-content-center align-items-center">
+        <h3 class="pt-1"><span>&#8369;</span> 850</h3>
+      </div>
+
+      <div class="col pt-1 d-flex justify-content-start align-items-center">
+        <div class="btn-group" role="group">
+          <button id="action-btn6" disabled class="minus btn btn-danger d-flex justify-content-center align-items-center"><i class="controls bi bi-dash"></i></button>
+          <input class="qty6 m-0" id="qty6" type="number" min="1" max="20" disabled>
+          <button id="action-btn6a" disabled class="addition btn btn-success d-flex justify-content-center align-items-center me-2"><i class="controls bi bi-plus"></i></button>
+        </div>
+        <button id="action-btn6b" type="button" class="btn btn-outline-success addbtn ms-2" disabled>ADD</button>
+      </div>
+    </div>
+
+
     <div class="row mt-4">
       <div class="container">
         <table class="table table-bordered mt-3">
