@@ -697,11 +697,7 @@
       dropdowns.forEach(function(d) {
         d.disabled = false;
       });
-    } else if (st.value === '' ) {
-      dropdowns.forEach(function(d) {
-        d.disabled = true;
-      });
-    } else {
+    }else {
       dropdowns.forEach(function(d) {
         if (d !== dropdown) {
           d.disabled = true;
