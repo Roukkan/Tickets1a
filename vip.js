@@ -12,6 +12,7 @@ const numberOfRows = 15;
 const numberOfColumns = 22;
 let clickedCount = 0; 
 console.log("VIP loaded");
+
 VIPSeatsButton.addEventListener('click', function() {
     const PriceValue = parseInt(VIPprice.textContent.replace(/[^\d]/g, ''));          
     VIPoutput.textContent = `₱${PriceValue.toLocaleString()}`;
@@ -29,6 +30,7 @@ for (let row = 1; row <= numberOfRows; row++) {
         const VIPseatType = `${VIPseat} RR${row} S${col}`;
         VIPbutton.setAttribute('data-bs-title', VIPseatType);
         VIPbutton.id = VIPseatType;
+
         VIPbutton.addEventListener('click', () => {
         if (VIPbutton.classList.contains('clicked')) {
             VIPbutton.classList.remove('clicked');
@@ -36,6 +38,7 @@ for (let row = 1; row <= numberOfRows; row++) {
             VIPbutton.classList.add('clicked');
         }
         seat.textContent = VIPbutton.getAttribute('data-bs-title');
+        updateSeatData();
     });
     VIPContainer.appendChild(VIPbutton);
     }
@@ -58,9 +61,11 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
         });
         return tooltip;
     });   
-
+    
     const VIPboxButtons = document.querySelectorAll('.box');
     VIPboxButtons.forEach(VIPbutton => {
+
+        
         VIPbutton.addEventListener('click', function() {
             const VipClickCount = parseInt(counterElement.textContent);
             const VIPPriceVal = parseInt(VIPprice.textContent.replace(/[^\d]/g, ''));
@@ -68,31 +73,35 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
             VIPoutput1.textContent = `₱${totalPrice.toLocaleString()}`;
                 var title = VIPbutton.getAttribute("data-bs-title");
                 var amount = VIPPriceVal;
+                
                     
                 var seatIndex = VIPClicked.findIndex(seat => seat.title === title);
                 if (seatIndex === -1) {
-                   VIPClicked.push({ title: title, amount: amount});
+                   VIPClicked.push({ title: title, amount: amount, Qty: VipClickCount });
+                   
                 } else {
                     VIPClicked.splice(seatIndex, 1);
                 }
             });
         });
         const VIPClicked = [];
-        const VIPpaymentButton = document.getElementById('paymentButton');
+        
         const VIPTotalAmount = document.getElementById("totalAmount");
         const confirmSeatButton = document.getElementById('confirmSeat');
         const VIPselectedSeats = document.getElementById("seat-table");
         confirmSeatButton.addEventListener('click', function() {
             VIPselectedSeats.innerHTML = "";
             var totalAmount = 0;
-        
+
             VIPClicked.forEach(function(seat) {
                 var newRow = VIPselectedSeats.insertRow();
                 var cellTitle = newRow.insertCell(0);
                 cellTitle.textContent = seat.title;
-                
+
                 var cellAmountAndDelete = newRow.insertCell(1);
                 cellAmountAndDelete.textContent = "₱" + seat.amount.toLocaleString();
+
+                
                 
                 var deleteButton = document.createElement("button");
                 deleteButton.textContent = "Delete";
@@ -100,25 +109,24 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
                 deleteButton.addEventListener("click", function() {
                     var index = VIPClicked.findIndex(entry => entry.title === seat.title); // Find the correct index
         
-                    VIPClicked.splice(index, 1); // Remove the clicked seat entry
+                    VIPClicked.splice(index, 1); 
                     
-                    // Find and unclick the corresponding button
+    
                     const clickedButton = document.getElementById(seat.title);
                     if (clickedButton) {
                         clickedButton.classList.remove('clicked');
                     }
-        
-                    // Recalculate total amount and update the table
+    
                     totalAmount -= seat.amount;
                     VIPTotalAmount.textContent = "₱" + totalAmount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         
-                    VIPselectedSeats.deleteRow(index); // Delete the table row
+                    VIPselectedSeats.deleteRow(index); 
         
                     if (VIPClicked.length === 0) {
                         VIPTotalAmount.textContent = "₱0";
                         clickedCount = 0;
                         counterElement.textContent = clickedCount;
-                        VIPselectedSeats.innerHTML = ""; // Clear the table
+                        VIPselectedSeats.innerHTML = ""; 
                         updateDropdownState();
                     }
                 });
@@ -132,10 +140,12 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
             });
             updateDropdownState();
         });
-        
+
+        const VIPpaymentButton = document.getElementById('paymentButton');
 function updateDropdownState() {
     const VIPselectedSeats = document.getElementById('seat-table');
     const VIPSeatsDropdown = document.getElementById('vipSelect');
+    
         
         if (VIPselectedSeats.rows.length > 0) {
             VIPSeatsDropdown.disabled = true;
@@ -145,3 +155,70 @@ function updateDropdownState() {
             VIPpaymentButton.style.display = 'none';
         }
 }
+
+function saveData() {
+    var title = VIPseat;
+    var seatLocation = VIPcheckedSeats;
+    var price = VIPprice.textContent;
+    var quantity = clickedCount;
+    var total = VIPTotalAmount.textContent;
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open("POST", "index.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText); // This will show the response from the PHP script
+            } else {
+                console.error("Request failed");
+            }
+        }
+    };
+
+    // Send the data to the PHP script as separate variables
+    
+
+    var data = "seatLocation=" + encodeURIComponent(seatLocation) +
+               "&price=" + encodeURIComponent(price) +
+               "&quantity=" + encodeURIComponent(quantity) +
+               "&total=" + encodeURIComponent(total) +
+               "&title="+ encodeURIComponent(title);
+    xhr.send(data);
+}
+
+
+const VIPConfirm = document.getElementById('ComfirmPay');
+VIPConfirm.addEventListener("click", function() {
+    saveData();
+});
+
+
+
+
+let VIPcheckedSeats = [];
+function updateSeatData() {
+    const VIPboxButtons = document.querySelectorAll('.box');
+
+    VIPboxButtons.forEach(VIPbutton => {
+        const title = VIPbutton.getAttribute('data-bs-title');
+        const isChecked = VIPbutton.classList.contains('clicked');
+
+        if (isChecked) {
+            VIPbutton.classList.add('clicked');
+            if (!VIPcheckedSeats.includes(title)) {
+                VIPcheckedSeats.push(title);
+            }
+        } else {
+            VIPbutton.classList.remove('clicked');
+            const index = VIPcheckedSeats.indexOf(title);
+            if (index !== -1) {
+                VIPcheckedSeats.splice(index, 1);
+            }
+        }
+    });
+}
+
+
+    
+

@@ -20,7 +20,11 @@
 </head>
 
 <body>
-
+    <div class="row">
+        <div class="col">
+            <h1>concert name</h1>
+        </div>
+    </div>
     <div class="content-wrap mt-3">
         <div class="col">
             <h1>Seat Plan</h1>
@@ -32,7 +36,10 @@
         </div>
 
         <div class="container ms-3">
+
             <h1>Tickets</h1>
+
+
             <div class="row">
                 <div class="col d-flex justify-content-center align-items-center">Location</div>
                 <div class="col d-flex justify-content-center align-items-center">Section</div>
@@ -244,15 +251,18 @@
                             </tr>
                         </tfoot>
                     </table>
-
+                    <form action=""></form>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
-                        <button id="paymentButton" class="btn btn-success" style="display: none;">Proceed to
+                        <button class="btn btn-success" style="display: none;" id="paymentButton" data-bs-toggle="modal"
+                            data-bs-target="#paymentModal">Proceed to
                             Payment</button>
                     </div>
+
                 </div>
 
             </div>
         </div>
+
 
         <!------------------------------------ Seat Plan Map Modal ------------------------------------------>
         <div class="modal fade" id="seatplan" tabindex="-1" aria-labelledby="seatplanLabel" aria-hidden="true">
@@ -271,8 +281,7 @@
         </div>
 
         <!--------------------------------- VIP SEATS Modal --------------------------------------------->
-        <div class="modal fade content-wrap" id="vipselect" tabindex="-1" aria-labelledby="vipselectLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="vipselect" tabindex="-1" aria-labelledby="vipselectLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -389,7 +398,6 @@
                     </div>
                     <div class="modal-body mt-0 pt-0" style="height: 100%;">
                         <div class="row" style="height: 100%;">
-
                             <!------------------------- left Column ------------------------->
                             <div class="col-md-8 d-flex justify-content-center align-content-center overflow-auto">
                                 <table>
@@ -496,13 +504,16 @@
                         <div class="row" style="height: 100%;">
 
                             <!------------------------- left Column ------------------------->
-                            <div class="col-md-8 d-flex justify-content-center align-content-center W-25 overflow-auto">
+                            <div class="col-md-8 d-flex justify-content-center align-content-center overflow-auto">
                                 <table>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div id="PB-container" class="mt-2 pt-2">
+                                                <div class="col mt-5 PB-container">
+                                                    <div id="PB-container" class=" mt-5 ">
+                                                    </div>
                                                 </div>
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -600,13 +611,16 @@
                     <div class="modal-body mt-0 pt-0" style="height: 100%;">
                         <div class="row" style="height: 100%;">
                             <!------------------------- left Column ------------------------->
-                            <div class="col-md-8 ">
+                            <div class="col-md-8 overflow-auto">
                                 <table>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div id="LB-container" class="mt-2 pt-2 LB-container">
+                                                <div
+                                                    class="col d-flex justify-content-center align-content-center mt-5 ">
+                                                    <div id="LB-container" class="mt-2 pt-2 LB-container"></div>
                                                 </div>
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -708,7 +722,10 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div id="UB-container" class="mt-2 pt-2">
+                                                <div
+                                                    class="col d-flex justify-content-center align-content-center mt-5 ">
+                                                    <div id="UB-container" class="mt-2 pt-2 UB-container">
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -795,6 +812,69 @@
                 </div>
             </div>
         </div>
+
+
+        <!--------------------------------- Payment Modal --------------------------------------------->
+
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="title">Payment</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <form action="" onsubmit="submit()">
+                                <div class="row">
+                                    <div class="col">
+
+                                        <div class="col">
+                                            <div class="inputBox">
+                                                <span>Cards Accepted:</span>
+                                                <img src="card.JPG" alt="" class="w-50">
+                                            </div>
+                                            <div class="inputBox">
+                                                <span>Name on Card:</span>
+                                                <input type="text" placeholder="Mr. Juan Dela Cruz" id="fullName"
+                                                    required class="form-control">
+                                            </div>
+                                            <div class="inputBox">
+                                                <span>Credit Card Number:</span>
+                                                <input type="text" min="0" maxlength="16"
+                                                    placeholder="1111-0000-2222-3333" id="cardNumber"
+                                                    class="form-control" required>
+                                            </div>
+                                            <div class="inputBox">
+                                                <span>Expiry Month:</span>
+                                                <input type="text" placeholder="January" id="expiryMonth"
+                                                    class="form-control" required>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="inputBox">
+                                                    <span>Expiry Year :</span>
+                                                    <input type="text" maxlength="4" placeholder="2023"
+                                                        class="form-control" id="expiryYear" required>
+                                                </div>
+                                                <div class="inputBox">
+                                                    <span>CVV:</span>
+                                                    <input type="text" maxlength="4" placeholder="0123"
+                                                        class="form-control" id="cardCVV" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary submit-btn" id="ComfirmPay">Confirm
+                            Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <script>
         var dropdowns = document.querySelectorAll('.form-select');
@@ -942,6 +1022,64 @@
             document.body.appendChild(script);
         }
         </script>
+
+        <script>
+        const inputs = document.querySelectorAll('input');
+        const submit = document.querySelector('#submit-Btn');
+
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                let isAllFilled = true;
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        isAllFilled = false;
+                    }
+                });
+                submit.disabled = !isAllFilled;
+            });
+        });
+
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.addEventListener('click', function() {
+            alert("Payment Successful, Thank you!")
+            window.location.href = window.location.href;
+        });
+        </script>
+
 </body>
 
 </html>
+
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "u548574294_laravel";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = $_POST['title'];
+    $seatLocation = $_POST['seatLocation'];
+    $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
+    $total = $_POST['total'];
+    $Payment = "PAID";
+
+
+    $sql = "INSERT INTO `booking`(`ticket_name`, `ticket_price`, `qty`, `total`, `payment_status`, `seat_location`, `email`) VALUES 
+                        ('$title','$price','$quantity','$total','$Payment','$seatLocation','$Payment')";
+    if ($conn->query($sql) === TRUE) {
+        echo "Data inserted successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>

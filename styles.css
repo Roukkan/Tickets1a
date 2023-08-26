@@ -41,6 +41,7 @@ body {
       padding: 0 24px;
   }
 }
+
 .content-wrap {
     margin: 0 auto;
     max-width: 1280px;
@@ -86,8 +87,8 @@ h3,h4 {
 }
 
 .box {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
   background-color: white;
   border: 2px solid rgb(137, 0, 158);
   margin: 1px;
@@ -134,10 +135,6 @@ h3,h4 {
   grid: 0px;
 }
 
-#LB-container {
-  display: block;
-}
-
 button.clicked {
   background-color: purple;
 }
@@ -179,13 +176,18 @@ button.clicked {
   width: 13px;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  display: none;
+.PB-container{
+  display: flex;
+  width: 500px;
+  justify-content: center;
 }
 
-.summary-table > td {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+.LB-container{
+  display: block;
+  width: 500px;
+}
+
+.UB-container{
+  display: block;
+  width: 900px;
 }

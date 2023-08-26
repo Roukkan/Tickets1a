@@ -1,6 +1,5 @@
 
-const LBoutput1 = document.getElementById('LBoutput1');
-const LBprice = document.getElementById('LB-price');
+
 const LBcounterElement = document.getElementById('LBcounter');
 const LBcontainer = document.getElementById('LB-container');
 const LBrowSeat = document.getElementById('LBrowSeat');
@@ -32,6 +31,7 @@ for (let row = 0; row < LBrows; row++) {
             } else {
                 LBbutton.classList.add('clicked');
             }
+            updateSeatData();
         });
         rowDiv.appendChild(LBbutton);
     }
@@ -40,7 +40,7 @@ for (let row = 0; row < LBrows; row++) {
 }
      
 
-
+const LBprice = document.getElementById('LB-price');
 LBseatButton.addEventListener('click', function() {
     const LBpriceVal = parseInt(LBprice.textContent.replace(/[^\d]/g, ''));          
     LBoutput.textContent = `₱${LBpriceVal.toLocaleString()}`;
@@ -73,7 +73,7 @@ const LBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
             const LBclickCount = parseInt(LBcounterElement.textContent);
             const LBpriceVal = parseInt(LBprice.textContent.replace(/[^\d]/g, ''));
             const LBtotalPrice = LBpriceVal * LBclickCount;
-            LBoutput1.textContent = `₱${LBtotalPrice.toLocaleString()}`;
+            LBoutput.textContent = `₱${LBtotalPrice.toLocaleString()}`;
                 var title = LBbutton.getAttribute("data-bs-title");
                 var amount = LBpriceVal;
                     
@@ -150,3 +150,67 @@ const LBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 LBpaymentButton.style.display = 'none';
             }
         }
+
+        function lbsaveData() {
+            var title = LBSeat;
+            var seatLocation = LBcheckedSeats;
+            var price = LBoutput.textContent;
+            var quantity = LBcounterElement.textContent;
+            var total = LBtotalAmount.textContent;
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open("POST", "index.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText); 
+                    } else {
+                        console.error("Request failed");
+                    }
+                }
+            };
+        
+            // Send the data to the PHP script as separate variables
+            
+        
+            var data = "seatLocation=" + encodeURIComponent(seatLocation) +
+                       "&price=" + encodeURIComponent(price) +
+                       "&quantity=" + encodeURIComponent(quantity) +
+                       "&total=" + encodeURIComponent(total) +
+                       "&title="+ encodeURIComponent(title);
+            xhr.send(data);
+        }
+        const lbpaymentButton = document.getElementById('paymentButton');
+               
+        const LBConfirm = document.getElementById('ComfirmPay');
+        LBConfirm.addEventListener("click", function() {
+            saveData();
+        });
+
+        
+
+let LBcheckedSeats = [];
+function updateSeatData() {
+    const LBboxButtons = document.querySelectorAll('.box');
+
+    LBboxButtons.forEach(LBbutton => {
+        const title = LBbutton.getAttribute('data-bs-title');
+        const isChecked = LBbutton.classList.contains('clicked');
+
+        if (isChecked) {
+            LBbutton.classList.add('clicked');
+            if (!LBcheckedSeats.includes(title)) {
+                LBcheckedSeats.push(title);
+            }
+        } else {
+            LBbutton.classList.remove('clicked');
+            const index = LBcheckedSeats.indexOf(title);
+            if (index !== -1) {
+                LBcheckedSeats.splice(index, 1);
+            }
+        }
+    });
+}
+
+ 

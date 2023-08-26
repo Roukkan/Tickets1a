@@ -30,6 +30,7 @@ for (let row = 1; row <= PArows; row++) {
             PAbutton.classList.add('clicked');
         }
         PArowSeat.textContent = PAbutton.getAttribute('data-bs-title');
+        updateSeatData();
     });
     PAcontainer.appendChild(PAbutton);
     }
@@ -143,3 +144,67 @@ const PAtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 PApaymentButton.style.display = 'none';
             }
         }
+
+        function pasaveData() {
+            var title = PAseat;
+            var seatLocation = PAcheckedSeats;
+            var price = PAprice.textContent;
+            var quantity = PAclickCount;
+            var total = PAtotalAmount.textContent;
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open("POST", "index.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText); // This will show the response from the PHP script
+                    } else {
+                        console.error("Request failed");
+                    }
+                }
+            };
+        
+            // Send the data to the PHP script as separate variables
+            
+        
+            var data = "seatLocation=" + encodeURIComponent(seatLocation) +
+                       "&price=" + encodeURIComponent(price) +
+                       "&quantity=" + encodeURIComponent(quantity) +
+                       "&total=" + encodeURIComponent(total) +
+                       "&title="+ encodeURIComponent(title);
+            xhr.send(data);
+        }
+        const papaymentButton = document.getElementById('paymentButton');
+               
+        const PAConfirm = document.getElementById('ComfirmPay');
+        PAConfirm.addEventListener("click", function() {
+            saveData();
+        });
+
+        
+
+let PAcheckedSeats = [];
+function updateSeatData() {
+    const PAboxButtons = document.querySelectorAll('.box');
+
+    PAboxButtons.forEach(PAbutton => {
+        const title = PAbutton.getAttribute('data-bs-title');
+        const isChecked = PAbutton.classList.contains('clicked');
+
+        if (isChecked) {
+            PAbutton.classList.add('clicked');
+            if (!PAcheckedSeats.includes(title)) {
+                PAcheckedSeats.push(title);
+            }
+        } else {
+            PAbutton.classList.remove('clicked');
+            const index = PAcheckedSeats.indexOf(title);
+            if (index !== -1) {
+                PAcheckedSeats.splice(index, 1);
+            }
+        }
+    });
+}
+
+

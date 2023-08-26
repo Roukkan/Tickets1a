@@ -32,6 +32,7 @@ for (let row = 0; row < PBrows; row++) {
             } else {
                 PBbutton.classList.add('clicked');
             }
+            updateSeatData();
         });
         rowDiv.appendChild(PBbutton);
     }
@@ -150,4 +151,66 @@ const PBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 PBpaymentButton.style.display = 'none';
             }
         }
+        function pbsaveData() {
+            var title = PBseat;
+            var seatLocation = PBcheckedSeats;
+            var price = PBprice.textContent;
+            var quantity = PBclickCount;
+            var total = PBtotalAmount.textContent;
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open("POST", "index.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText); // This will show the response from the PHP script
+                    } else {
+                        console.error("Request failed");
+                    }
+                }
+            };
         
+            // Send the data to the PHP script as separate variables
+            
+        
+            var data = "seatLocation=" + encodeURIComponent(seatLocation) +
+                       "&price=" + encodeURIComponent(price) +
+                       "&quantity=" + encodeURIComponent(quantity) +
+                       "&total=" + encodeURIComponent(total) +
+                       "&title="+ encodeURIComponent(title);
+            xhr.send(data);
+        }
+        const pbpaymentButton = document.getElementById('paymentButton');
+               
+        const PBConfirm = document.getElementById('ComfirmPay');
+        PBConfirm.addEventListener("click", function() {
+            saveData();
+        });
+        
+
+let PBcheckedSeats = [];
+function updateSeatData() {
+    const PBboxButtons = document.querySelectorAll('.box');
+
+    PBboxButtons.forEach(PBbutton => {
+        const title = PBbutton.getAttribute('data-bs-title');
+        const isChecked = PBbutton.classList.contains('clicked');
+
+        if (isChecked) {
+            PBbutton.classList.add('clicked');
+            if (!PBcheckedSeats.includes(title)) {
+                PBcheckedSeats.push(title);
+            }
+        } else {
+            PBbutton.classList.remove('clicked');
+            const index = PBcheckedSeats.indexOf(title);
+            if (index !== -1) {
+                PBcheckedSeats.splice(index, 1);
+            }
+        }
+    });
+}
+
+
+

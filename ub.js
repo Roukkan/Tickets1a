@@ -30,6 +30,7 @@ for (let row = 0; row < UBrows; row++) {
             } else {
                 UBbutton.classList.add('clicked');
             }
+            updateSeatData();
         });
         rowDiv.appendChild(UBbutton);
     }
@@ -150,3 +151,65 @@ const UBtoolTipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-t
                 UBpaymentButton.style.display = 'none';
             }
         }
+
+        function ubsaveData() {
+            var title = UBSeat;
+            var seatLocation = UBcheckedSeats;
+            var price = UBprice.textContent;
+            var quantity = UBcounterElement.textContent;
+            var total = UBtotalAmount.textContent;
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open("POST", "index.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText); // This will show the response from the PHP script
+                    } else {
+                        console.error("Request failed");
+                    }
+                }
+            };
+        
+            // Send the data to the PHP script as separate variables
+                   
+            var data = "seatLocation=" + encodeURIComponent(seatLocation) +
+                       "&price=" + encodeURIComponent(price) +
+                       "&quantity=" + encodeURIComponent(quantity) +
+                       "&total=" + encodeURIComponent(total) +
+                       "&title="+ encodeURIComponent(title);
+            xhr.send(data);
+        }
+        const ubpaymentButton = document.getElementById('paymentButton');
+               
+        const UBConfirm = document.getElementById('ComfirmPay');
+        UBConfirm.addEventListener("click", function() {
+            ubsaveData();
+        });
+
+
+        let UBcheckedSeats = [];
+        function updateSeatData() {
+            const UBboxButtons = document.querySelectorAll('.box');
+        
+            UBboxButtons.forEach(UBbutton => {
+                const title = UBbutton.getAttribute('data-bs-title');
+                const isChecked = UBbutton.classList.contains('clicked');
+        
+                if (isChecked) {
+                    UBbutton.classList.add('clicked');
+                    if (!UBcheckedSeats.includes(title)) {
+                        UBcheckedSeats.push(title);
+                    }
+                } else {
+                    UBbutton.classList.remove('clicked');
+                    const index = UBcheckedSeats.indexOf(title);
+                    if (index !== -1) {
+                        UBcheckedSeats.splice(index, 1);
+                    }
+                }
+            });
+        }
+        
+ 
